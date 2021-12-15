@@ -131,6 +131,14 @@ router.post('/dogs', async (req, res) => {
     return res.json(newDogCreated);
 })
 
+router.get('/dogs/:id', async (req, res) => {
+    const id = req.params.id;
+    const dogsTotal = await getAllDogs()
+    if (id){
+        let dogId = await dogsTotal.filter( el => el.id == id)
+        dogId.length? res.status(200).json(dogId) : res.status(404).send('No se encontro el perro')
+    }
+})
 
 
 module.exports = router;
